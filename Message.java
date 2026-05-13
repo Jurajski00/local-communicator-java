@@ -1,13 +1,19 @@
 package project;
 
 public class Message {
-    private String message;
+    private User sender;
+    private String content;
 
-    public Message(String message) {
-        this.message = message;
+    public Message(User sender, String content) {
+        this.sender = sender;
+        this.content = content;
     }
 
-    public String getMessage() {
-        return message;
+    public String getContent() {
+        return content;
+    }
+
+    public User getSender() {
+        return sender;
     }
 }

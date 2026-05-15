@@ -1,6 +1,5 @@
 package project;
 
-import java.util.Currency;
 import java.util.Scanner;
 
 public class ChatSession {
@@ -15,16 +14,16 @@ public class ChatSession {
 
     public void chat(Scanner sc) {
         System.out.println("You are now messaging " + chatPartner.getName());
-        currentUser.getMessages();
+        System.out.println("Type \"/exit\" to exit");
+        Messenger chat = new Messenger(currentUser, chatPartner);
 
-        Messenger chat = new Messenger();
         String text;
 
         while (true) {
             text = sc.nextLine();
             if (text.equals("/exit"))
                 break;
-            chat.sendMessage(chatPartner, new Message(currentUser, text));
+            chat.sendMessage(new Message(currentUser, text));
         }
     }
 }

@@ -18,9 +18,9 @@ public class Main {
 
             new ChatSession(currentUser, chatPartner, sc);
             
-            System.out.println("Press x to exit");
+            System.out.println("Type \"/exit\" to exit");
             exit = sc.nextLine();
-            if (exit.equals("x"))
+            if (exit.equals("/exit"))
                 break;
         } 
 

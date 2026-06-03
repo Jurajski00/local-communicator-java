@@ -1,4 +1,8 @@
-package project;
+package project.data;
+
+import project.core.Connection;
+import project.core.Message;
+import project.core.User;
 
 public class Messenger {
     Conversation conversation;
@@ -9,9 +13,6 @@ public class Messenger {
         this.conversation = new Conversation(chatKey);
         
         conversation.loadMessages();
-    }
-
-    public void recieveMessage() {
     }
 
     public void sendMessage(Message message) {

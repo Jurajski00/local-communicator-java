@@ -1,15 +1,18 @@
 package project;
 
+import project.core.Message;
+import project.core.User;
+import project.data.Messenger;
+
 import java.util.Scanner;
 
 public class ChatSession {
     private User currentUser;
     private User chatPartner;
 
-    public ChatSession(User currentUser, User chatPartner, Scanner sc) {
+    public ChatSession(User currentUser, User chatPartner) {
         this.currentUser = currentUser;
         this.chatPartner = chatPartner;
-        chat(sc);
     }
 
     public void chat(Scanner sc) {

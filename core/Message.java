@@ -1,4 +1,4 @@
-package project;
+package project.core;
 
 public class Message {
     private User sender;
@@ -13,7 +13,7 @@ public class Message {
         return content;
     }
 
-    public User getSender() {
-        return sender;
+    public String getSender() {
+        return sender.getName();
     }
 }

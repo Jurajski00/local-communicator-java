@@ -1,10 +1,10 @@
-package project;
+package project.core;
 
 public class Connection {
     private final String stringKey;
 
     public Connection(User currentUser, User chatPartner) {
-        this.stringKey = connect(currentUser, chatPartner);
+        stringKey = connect(currentUser, chatPartner);
     }
 
     public String connect(User currentUser, User chatPartner) {

@@ -1,4 +1,6 @@
-package project;
+package project.data;
+
+import project.core.Message;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -18,7 +20,7 @@ public class Conversation {
     public void loadMessages() {
         List<Message> thisChatHistory = allChatHistory.get(stringKey);
         for (Message message : thisChatHistory) {
-            System.out.println(message.getContent());
+            System.out.println(message.getSender() + ": " + message.getContent());
         }
     }
 

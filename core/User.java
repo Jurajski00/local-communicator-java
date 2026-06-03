@@ -1,4 +1,4 @@
-package project;
+package project.core;
 
 public class User {
     private static int nextId = 1;

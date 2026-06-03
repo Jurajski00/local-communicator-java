@@ -1,5 +1,7 @@
 package project;
 
+import project.core.User;
+
 import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
@@ -16,7 +18,8 @@ public class Main {
             User currentUser = login(sc, users);
             User chatPartner = selectChat(sc, users, currentUser);
 
-            new ChatSession(currentUser, chatPartner, sc);
+            ChatSession chatSession = new ChatSession(currentUser, chatPartner);
+            chatSession.chat(sc);
             
             System.out.println("Type \"/exit\" to exit");
             exit = sc.nextLine();

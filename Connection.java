@@ -1,6 +1,6 @@
 package project;
 
-public class Connection implements Iconnectable {
+public class Connection {
     private final String stringKey;
 
     public Connection(User currentUser, User chatPartner) {

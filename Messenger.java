@@ -1,6 +1,6 @@
 package project;
 
-public class Messenger implements Isendable, Irecieveable {
+public class Messenger {
     Conversation conversation;
 
     public Messenger(User currentUser, User chatPartner) {

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
 
-public class Conversation implements Istorable {
+public class Conversation {
     private String stringKey;
     private static Map<String, List<Message>> allChatHistory = new HashMap<>();
 

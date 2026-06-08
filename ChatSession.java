@@ -2,7 +2,7 @@ package project;
 
 import project.core.Message;
 import project.core.User;
-import project.data.Messenger;
+import project.service.MessengerService;
 
 import java.util.Scanner;
 
@@ -18,7 +18,7 @@ public class ChatSession {
     public void chat(Scanner sc) {
         System.out.println("You are now messaging " + chatPartner.getName());
         System.out.println("Type \"/exit\" to exit");
-        Messenger chat = new Messenger(currentUser, chatPartner);
+        MessengerService chat = new MessengerService(currentUser, chatPartner);
 
         String text;
 

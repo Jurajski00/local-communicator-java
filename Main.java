@@ -1,6 +1,8 @@
 package project;
 
 import project.core.User;
+import project.ui.ChatWindow;
+import project.ui.LoginWindow;
 
 import java.util.Scanner;
 import java.util.List;
@@ -8,27 +10,29 @@ import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+//        Scanner sc = new Scanner(System.in);
         List<User> users = new ArrayList<>();
         users.add(new User("Daniel"));
         users.add(new User("Natalia"));
+        new LoginWindow();
 
-        String exit;        
-        while (true) {
-            User currentUser = login(sc, users);
-            User chatPartner = selectChat(sc, users, currentUser);
-
-            ChatSession chatSession = new ChatSession(currentUser, chatPartner);
-            chatSession.chat(sc);
-            
-            System.out.println("Type \"/exit\" to exit");
-            exit = sc.nextLine();
-            if (exit.equals("/exit"))
-                break;
-        } 
+//
+//        String exit;
+//        while (true) {
+//            User currentUser = login(sc, users);
+//            User chatPartner = selectChat(sc, users, currentUser);
+//
+//            ChatSession chatSession = new ChatSession(currentUser, chatPartner);
+//            chatSession.chat(sc);
+//
+//            System.out.println("Type \"/exit\" to exit");
+//            exit = sc.nextLine();
+//            if (exit.equals("/exit"))
+//                break;
+//        }
 
         System.out.println();
-        sc.close();
+//        sc.close();
     }
 
     private static User login(Scanner sc, List<User> users) {

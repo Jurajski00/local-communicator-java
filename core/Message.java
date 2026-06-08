@@ -1,12 +1,21 @@
 package project.core;
 
-public class Message {
-    private User sender;
-    private String content;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-    public Message(User sender, String content) {
+public abstract class Message implements MessageFormatter {
+    private final User sender;
+    private String content;
+    private final LocalDateTime createdAt;
+
+    protected Message(User sender, String content) {
+        this(sender, content, LocalDateTime.now());
+    }
+
+    protected Message(User sender, String content, LocalDateTime createdAt) {
         this.sender = sender;
         this.content = content;
+        this.createdAt = createdAt;
     }
 
     public String getContent() {
@@ -16,4 +25,67 @@ public class Message {
     public String getSender() {
         return sender.getName();
     }
+
+    public String getSenderName() { return sender.getName(); }
+
+    public void setContent(String content) {
+        String trimmedContent = content.trim();
+
+        if (trimmedContent.isEmpty()) {
+            throw new IllegalArgumentException("Content cannot be empty");
+        }
+
+        this.content = trimmedContent;
+    }
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    protected String getFormattedTime() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        return createdAt.format(formatter);
+    }
+
+    public abstract String getStorageType();
+
+    public String toFileLine() {
+        return getStorageType()
+                + ";"
+                + sender.getId()
+                + ";"
+                + createdAt
+                + ";"
+                + escape(content);
+    }
+
+    protected static String escape(String value) {
+        return value
+                .replace("\\", "\\\\")
+                .replace(";", "\\;")
+                .replace("\n", "\\n");
+    }
+
+    protected static String unescape(String value) {
+        StringBuilder result = new StringBuilder();
+        boolean escaping = false;
+
+        for (char character : value.toCharArray()) {
+            if (escaping) {
+                if (character == 'n') {
+                    result.append('\n');
+                } else {
+                    result.append(character);
+                }
+
+                escaping = false;
+            } else if (character == '\\') {
+                escaping = true;
+            } else {
+                result.append(character);
+            }
+        }
+
+        return result.toString();
+    }
+
 }

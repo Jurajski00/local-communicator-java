@@ -22,11 +22,9 @@ public abstract class Message implements MessageFormatter {
         return content;
     }
 
-    public String getSender() {
+    public String getSenderName() {
         return sender.getName();
     }
-
-    public String getSenderName() { return sender.getName(); }
 
     public void setContent(String content) {
         String trimmedContent = content.trim();
@@ -37,6 +35,7 @@ public abstract class Message implements MessageFormatter {
 
         this.content = trimmedContent;
     }
+
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
@@ -87,5 +86,4 @@ public abstract class Message implements MessageFormatter {
 
         return result.toString();
     }
-
 }

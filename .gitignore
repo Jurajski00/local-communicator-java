@@ -4,3 +4,5 @@ docs/
 .idea
 out/
 *.iml
+data/*.txt
+data/messages/

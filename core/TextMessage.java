@@ -1,7 +1,5 @@
 package project.core;
 
-import org.w3c.dom.Text;
-
 import java.time.LocalDateTime;
 
 public class TextMessage extends Message {

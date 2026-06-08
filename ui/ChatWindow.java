@@ -2,71 +2,94 @@ package project.ui;
 
 import project.core.Message;
 import project.core.User;
+import project.exception.DataAccessException;
+import project.exception.EmptyInputException;
 import project.service.MessengerService;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.List;
 
 public class ChatWindow {
-    private User currentUser;
-    private User chatPartner;
+    private final User currentUser;
+    private final User chatPartner;
+    private final MessengerService messengerService;
+
     private JFrame frame;
-    private JPanel chatPanel;
+    private JTextArea chatArea;
     private JPanel sendPanel;
     private JButton sendButton;
     private JTextField messageField;
-    private MessengerService messengerService;
 
-    public ChatWindow(User currentUser, User chatPartner) {
+    public ChatWindow(User currentUser, User chatPartner, MessengerService messengerService) {
         this.currentUser = currentUser;
         this.chatPartner = chatPartner;
-        messengerService = new MessengerService(currentUser, chatPartner);
+        this.messengerService = messengerService;
+
         initFrame();
         initPanel();
-        frame.add(chatPanel, BorderLayout.CENTER);
-        frame.add(sendPanel, BorderLayout.SOUTH);
         createUI();
+        loadMessages();
         show();
     }
 
-//    public static void main(String[] args) {
-//        SwingUtilities.invokeLater(() -> {new ChatWindow();});
-//    }
-
     private void createUI() {
-        GridBagConstraints gbc = new GridBagConstraints();
+        JScrollPane scrollPane = new JScrollPane(chatArea);
+        frame.add(scrollPane, BorderLayout.CENTER);
+
         messageField = new JTextField();
-        messageField.setPreferredSize(new Dimension(500, 40));
-        sendPanel.add(messageField, gbc);
+        messageField.setPreferredSize(new Dimension(450, 40));
+        messageField.addActionListener(event -> sendMessage());
+        sendPanel.add(messageField);
+
         sendButton = new JButton("Send");
-        sendButton.addActionListener(e -> {
-            String message = messageField.getText().trim();
-            if (message.isEmpty()) {
-                JOptionPane.showMessageDialog(frame, "Please enter a message");
-                return;
-            }
-            messengerService.sendMessage(new Message(currentUser, message));
-        });
         sendButton.setPreferredSize(new Dimension(100, 40));
-        sendPanel.add(sendButton, gbc);
+        sendButton.addActionListener(event -> sendMessage());
+        sendPanel.add(sendButton);
+
+        frame.add(sendPanel, BorderLayout.SOUTH);
+    }
+
+    private void sendMessage() {
+        try {
+            messengerService.sendTextMessage(messageField.getText());
+            messageField.setText("");
+            loadMessages();
+        } catch (EmptyInputException exception) {
+            JOptionPane.showMessageDialog(frame, exception.getMessage());
+        } catch (DataAccessException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private void loadMessages() {
-        messengerService.loadMessages();
+        chatArea.setText("");
+
+        List<Message> messages = messengerService.loadMessages();
+
+        for (Message message : messages) {
+            chatArea.append(message.formatForDisplay());
+            chatArea.append(System.lineSeparator());
+        }
+
+        chatArea.setCaretPosition(chatArea.getDocument().getLength());
     }
 
     private void initPanel() {
-        chatPanel = new JPanel();
-        chatPanel.setLayout(new GridBagLayout());
+        chatArea = new JTextArea();
+        chatArea.setEditable(false);
+        chatArea.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 14));
+
         sendPanel = new JPanel();
-        sendPanel.setLayout(new GridBagLayout());
+        sendPanel.setLayout(new FlowLayout());
     }
 
     private void initFrame() {
-        frame = new JFrame("Chat");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(600, 800);
+        frame = new JFrame("Chat: " + currentUser.getName() + " → " + chatPartner.getName());
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setSize(650, 800);
         frame.setLocationRelativeTo(null);
+        frame.setLayout(new BorderLayout());
     }
 
     private void show() {

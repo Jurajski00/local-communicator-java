@@ -8,14 +8,12 @@ public class Conversation {
     private final ChatKey chatKey;
     private final User currentUser;
     private final User chatPartner;
-    private String title;
     private final List<Message> messages;
 
     public Conversation(User currentUser, User chatPartner) {
         this.currentUser = currentUser;
         this.chatPartner = chatPartner;
         this.chatKey = new ChatKey(currentUser, chatPartner);
-        this.title = currentUser.getName() + " & " + chatPartner.getName();
         this.messages = new ArrayList<>();
     }
 
@@ -29,20 +27,6 @@ public class Conversation {
 
     public User getChatPartner() {
         return chatPartner;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        String trimmedTitle = title.trim();
-
-        if (trimmedTitle.isEmpty()) {
-            throw new IllegalArgumentException("Conversation title cannot be empty.");
-        }
-
-        this.title = trimmedTitle;
     }
 
     public void addMessage(Message message) {

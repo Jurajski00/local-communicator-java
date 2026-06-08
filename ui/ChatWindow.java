@@ -38,7 +38,7 @@ public class ChatWindow {
         frame.add(scrollPane, BorderLayout.CENTER);
 
         messageField = new JTextField();
-        messageField.setPreferredSize(new Dimension(450, 40));
+        messageField.setPreferredSize(new Dimension(350, 40));
         messageField.addActionListener(event -> sendMessage());
         sendPanel.add(messageField);
 
@@ -85,7 +85,7 @@ public class ChatWindow {
     }
 
     private void initFrame() {
-        frame = new JFrame("Chat: " + currentUser.getName() + " → " + chatPartner.getName());
+        frame = new JFrame("Chat with " + chatPartner.getName());
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setSize(650, 800);
         frame.setLocationRelativeTo(null);

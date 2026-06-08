@@ -7,13 +7,18 @@ public class ChatKey {
         stringKey = generateKey(currentUser, chatPartner);
     }
 
-    public String generateKey(User currentUser, User chatPartner) {
+    private String generateKey(User currentUser, User chatPartner) {
         int currentId = currentUser.getId();
         int partnerId = chatPartner.getId();
         return (currentId < partnerId) ? (currentId + "&" + partnerId) : (partnerId + "&" + currentId);
     }
 
     public String getStringKey() {
+        return stringKey;
+    }
+
+    @Override
+    public String toString() {
         return stringKey;
     }
 }

@@ -26,20 +26,6 @@ public abstract class Message implements MessageFormatter {
         return sender.getName();
     }
 
-    public void setContent(String content) {
-        String trimmedContent = content.trim();
-
-        if (trimmedContent.isEmpty()) {
-            throw new IllegalArgumentException("Content cannot be empty");
-        }
-
-        this.content = trimmedContent;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
     protected String getFormattedTime() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         return createdAt.format(formatter);
@@ -62,28 +48,5 @@ public abstract class Message implements MessageFormatter {
                 .replace("\\", "\\\\")
                 .replace(";", "\\;")
                 .replace("\n", "\\n");
-    }
-
-    protected static String unescape(String value) {
-        StringBuilder result = new StringBuilder();
-        boolean escaping = false;
-
-        for (char character : value.toCharArray()) {
-            if (escaping) {
-                if (character == 'n') {
-                    result.append('\n');
-                } else {
-                    result.append(character);
-                }
-
-                escaping = false;
-            } else if (character == '\\') {
-                escaping = true;
-            } else {
-                result.append(character);
-            }
-        }
-
-        return result.toString();
     }
 }

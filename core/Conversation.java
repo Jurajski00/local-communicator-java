@@ -36,20 +36,4 @@ public class Conversation {
     public List<Message> getMessages() {
         return Collections.unmodifiableList(messages);
     }
-
-    public boolean containsUser(User user) {
-        return currentUser.equals(user) || chatPartner.equals(user);
-    }
-
-    public User getOtherUser(User user) {
-        if (currentUser.equals(user)) {
-            return chatPartner;
-        }
-
-        if (chatPartner.equals(user)) {
-            return currentUser;
-        }
-
-        throw new IllegalArgumentException("User does not belong to this conversation.");
-    }
 }

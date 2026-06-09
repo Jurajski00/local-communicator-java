@@ -48,12 +48,4 @@ public class MessengerService {
         conversation.addMessage(message);
         messageRepository.storeMessage(message);
     }
-
-    public User getCurrentUser() {
-        return conversation.getCurrentUser();
-    }
-
-    public User getChatPartner() {
-        return conversation.getChatPartner();
-    }
 }

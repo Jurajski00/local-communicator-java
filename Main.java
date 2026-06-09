@@ -12,7 +12,8 @@ public class Main {
             try {
                 new LoginWindow();
             } catch (DataAccessException e) {
-                JOptionPane.showMessageDialog(null, "Failed to start application: " + e.getMessage());
+                JOptionPane.showMessageDialog(null, "Failed to start application: "
+                        + e.getMessage());
             }
         });
     }
